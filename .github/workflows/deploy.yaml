@@ -1,14 +1,14 @@
-name: Terraform CICD pipeline to deploy VPC
+name: Terraform CI CD Pipeline for Deploying AWS Resources
 run-name: ${{ github.actor }} has triggered the pipeline
 
 on:
   push:
-     branches:
-       - 'main'
+    branches:
+      - 'main'
 
-env: 
-   AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
-   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+env:
+  AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
 jobs:
   build-infra:
@@ -22,16 +22,16 @@ jobs:
       - name: Terraform Init
         id: init
         run: terraform init
-        working directory: ./Terraform-VPC
+        working-directory: ./Terraform-VPC
       - name: Terraform Validate
         id: validate
         run: terraform validate
-        working directory: ./Terraform-VPC
+        working-directory: ./Terraform-VPC
       - name: Terraform Plan
         id: plan
         run: terraform plan
-        working directory: ./Terraform-VPC
+        working-directory: ./Terraform-VPC
       - name: Terraform Apply
         id: apply
-        run: terraform apply --auto-approve
-        working directory: ./Terraform-VPC
+        run: terraform destroy --auto-approve
+        working-directory: ./Terraform-VPC
